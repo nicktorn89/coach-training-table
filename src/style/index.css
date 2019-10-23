@@ -1,3 +1,6 @@
+@import 'text.css';
+@import 'main.css';
+
 html, body {
 	height: 100%;
 	width: 100%;
