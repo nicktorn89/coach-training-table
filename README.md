@@ -1,8 +1,8 @@
-# preact material app
+# Coach Training Table
 
-Super performant `Material` app for preact world using [preact-material-components](https://github.com/prateekbh/preact-material-components)
+This table created with intention to help share training schedule for coaches.
 
-## CLI Commands
+## Run project
 
 ``` bash
 # install dependencies
@@ -17,5 +17,3 @@ npm run build
 # test the production build locally
 npm run serve
 ```
-
-For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
