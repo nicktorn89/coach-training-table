@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "someapp",
+  "name": "coach-training-table",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -22,7 +22,6 @@
   "devDependencies": {
     "enzyme": "^3.10.0",
     "enzyme-adapter-preact-pure": "^2.0.0",
-    "eslint": "^6.0.1",
     "eslint-config-synacor": "^3.0.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
@@ -31,9 +30,16 @@
     "preact-cli": "^3.0.0-rc.6",
     "preact-cli-plugin-env-vars": "^1.2.1",
     "preact-render-spy": "^1.2.1",
-    "serve": "^11.1.0"
+    "serve": "^11.1.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0"
   },
   "dependencies": {
+    "@material-ui/core": "^4.5.1",
     "contentful": "^7.10.0",
     "preact": "^10.0.1",
     "preact-render-to-string": "^5.1.0",

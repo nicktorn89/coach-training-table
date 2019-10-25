@@ -1,7 +1,9 @@
-import data from '../../../data.json';
+import Typography from '@material-ui/core/Typography';
 
-const Heading = () => <h2 className='heading'>
-  {data.title}
-</h2>;
+const Heading = ({ text }) => (
+  <Typography className='heading' component='h2' variant='h2'>
+    {text}
+  </Typography>
+);
 
 export default Heading;
