@@ -1,9 +1,5 @@
 import Main from './modules/Main';
 
-const App = () => (
-	<div id='app'>
-		<Main />
-	</div>
-);
-
-export default App;
+export default function App() {
+  return <Main />;
+}
