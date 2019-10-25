@@ -47,6 +47,8 @@ module.exports = {
     "react/jsx-no-target-blank": "off",
     "react/no-unescaped-entities": "off",
     "react/jsx-one-expression-per-line": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": "off"
   }
 }

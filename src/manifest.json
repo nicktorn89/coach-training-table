@@ -1,6 +1,6 @@
 {
-  "name": "coach-training-table",
-  "short_name": "coach-training-table",
+  "name": "title",
+  "short_name": "title",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

@@ -1,63 +1,35 @@
-import { useState, useEffect } from 'preact/hooks';
-import keys from './keys.json';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
-const contentful = require('contentful');
-const client = contentful.createClient({ ...keys });
-
-const TableComponent = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    client
-      .getEntries('training')
-      .then((entry) => {
-        setData(entry.items.map(({ fields }) => fields));
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
-
-  const rows = data.map((row) => <tr>
-    <td>{row.dayOfWeek}</td>
-    <td>{row.time}</td>
-    <td>{row.typeOfTraining}</td>
-    <td>{row.placeForTraining}</td>
-  </tr>
-  );
-
-  const columns = [
-    {
-      name: 'dayOfWeek',
-      displayName: 'День недели',
-    },
-    {
-      name: 'time',
-      displayName: 'Время',
-    },
-    {
-      name: 'typeOfTraining',
-      displayName: 'Тип тренировки',
-    },
-    {
-      name: 'placeForTraining',
-      displayName: 'Место проведения',
-    }
-  ];
-
-  return (
-    <table className='table'>
-      <thead>
-        <tr>
-          {columns.map((column) => <td>{column.displayName}</td>)}
-        </tr>
-      </thead>
-
-      <tbody>
-        {rows.map((row) => row)}
-      </tbody>
-    </table>
-  );
-}
-
+const TableComponent = ({ data }) => (
+  <Paper>
+    <Table aria-label='simple table'>
+      <TableHead>
+        <TableRow>
+          <TableCell align='center'>День недели</TableCell>
+          <TableCell align='center'>Время</TableCell>
+          <TableCell align='center'>Тип тренировки</TableCell>
+          <TableCell align='center'>Место проведения</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {data.map && data.map((row) => (
+          <TableRow key={row.id}>
+            <TableCell align='center'>
+              {row.dayOfWeek}
+            </TableCell>
+            <TableCell align='center'>{row.time}</TableCell>
+            <TableCell align='center'>{row.typeOfTraining}</TableCell>
+            <TableCell align='center'>{row.placeForTraining}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  </Paper>
+);
 
 export default TableComponent;
