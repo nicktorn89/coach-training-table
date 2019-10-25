@@ -71,3 +71,19 @@ div.photo-block {
 div.main-container {
   padding-top: 2rem;
 }
+
+[role='dialog'] {
+  min-width: 50%;
+}
+
+div.gallery {
+  margin-top: 2rem;
+}
+
+div.text-content * {
+  margin-bottom: 8px;
+}
+
+a.training-link {
+  cursor: pointer;
+}

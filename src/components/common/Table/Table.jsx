@@ -4,8 +4,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Link from '@material-ui/core/Link';
 
-const TableComponent = ({ data }) => (
+const TableComponent = ({ data, onOpenTraining }) => (
   <Paper>
     <Table aria-label='simple table'>
       <TableHead>
@@ -23,7 +24,9 @@ const TableComponent = ({ data }) => (
               {row.dayOfWeek}
             </TableCell>
             <TableCell align='center'>{row.time}</TableCell>
-            <TableCell align='center'>{row.typeOfTraining}</TableCell>
+            <TableCell align='center'>
+              <Link onClick={onOpenTraining} data-training-id={row.id} className='training-link'>{row.typeOfTraining}</Link>
+            </TableCell>
             <TableCell align='center'>{row.placeForTraining}</TableCell>
           </TableRow>
         ))}
