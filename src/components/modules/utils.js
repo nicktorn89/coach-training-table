@@ -1,1 +1,1 @@
-export const getImages = (array) => array.map((item) => item.fields.file.url);
+export const getImages = (array) => array.map((item) => ({ src: item.fields.file.url, alt: 'training' }));

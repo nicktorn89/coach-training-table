@@ -5,8 +5,8 @@ html, body {
 	height: 100%;
 	width: 100%;
 	padding: 0;
-	margin: 0;
-  background: #FAFAFA;
+  margin: 0;
+  background: linear-gradient(to right top, #7f7f7f, #707070, #626062, #545153, #474344, #3f3a3b, #363232, #2e2a2a, #282525, #221f21, #1c1a1c, #161517);
   background-image: url('../assets/background.jpg');
   background-size: cover;
   font-family: 'Helvetica Neue', arial, sans-serif;
@@ -86,4 +86,20 @@ div.text-content * {
 
 a.training-link {
   cursor: pointer;
+}
+
+@media screen and (max-width: 1279px) {
+  h2.heading {
+    text-align: center;
+  }
+  
+  h5.description {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  div.table-block {
+    display: none;
+  }
 }

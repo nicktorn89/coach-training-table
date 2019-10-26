@@ -25,13 +25,15 @@ const Main = () => {
       },
     },
   });
-  const [isOpenModal, setIsModalOpen] = useState(true);
+  const [isOpenModal, setIsModalOpen] = useState(false);
   const [currentTraining, setCurrentTraining] = useState(0);
   const [currentImage, setImage] = useState(0);
   const [isOpenViewer, setIsViewerOpen] = useState(false);
 
-  const handleClickOnImage = (e) => {
-
+  const handleClickOnImage = (imageIndex) => {
+    setImage(imageIndex);
+    setIsModalOpen(false);
+    setIsViewerOpen(true);
   };
 
   const handleCloseModal = () => {
@@ -51,6 +53,8 @@ const Main = () => {
 
   const handleCloseViewer = () => {
     setIsViewerOpen(false);
+
+    setIsModalOpen(true);
   };
 
   useEffect(() => {
@@ -86,7 +90,7 @@ const Main = () => {
           <Description text={descriptionData.subtitle} />
         </Grid>
 
-        <Grid item xs={12} lg={12}>
+        <Grid item xs={12} lg={12} className='table-block'>
           <Table data={tableData} onOpenTraining={handleOpenModal} />
         </Grid>
       </Grid>
