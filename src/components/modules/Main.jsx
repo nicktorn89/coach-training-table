@@ -5,7 +5,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { Fragment } from 'preact';
 import Viewer from 'react-viewer';
 import keys from './keys.json';
-import { Table, Heading, Description, TrainingDescription } from '../common';
+import { Table, Heading, Description, TrainingDescription, TrainingCard } from '../common';
 import { getImages } from './utils';
 
 const contentful = require('contentful');
@@ -61,10 +61,12 @@ const Main = () => {
     client
       .getEntries({ content_type: 'training' })
       .then((entry) => {
+        console.log(entry.items.map(({ fields }) => fields));
         setTableData(entry.items.map(({ fields }) => fields));
-        console.log(entry);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+      });
 
     client
       .getEntry('15efANJioHRlZjQUZEK5vJ')
@@ -93,6 +95,16 @@ const Main = () => {
         <Grid item xs={12} lg={12} className='table-block'>
           <Table data={tableData} onOpenTraining={handleOpenModal} />
         </Grid>
+
+        <Grid item xs={12} lg={12} className='cards-block'>
+          {
+            tableData.map((row) => (
+              <Grid item xs={9} sm={6} md={4} lg={2} key={row.id}>
+                <TrainingCard data={row} onOpenTraining={handleOpenModal} />
+              </Grid>
+            ))
+          }
+        </Grid>
       </Grid>
 
       <TrainingDescription
@@ -105,14 +117,20 @@ const Main = () => {
         trainingDescription={tableData[currentTraining]
           ? tableData[currentTraining].trainingDescription
           : ''}
-        images={tableData[currentTraining] ? getImages(tableData[currentTraining].examples) : []}
+        images={tableData[currentTraining]
+          && tableData[currentTraining].examples
+          ? getImages(tableData[currentTraining].examples)
+          : []}
       />
 
       {typeof document !== 'undefined'
         ? (
           <Viewer
             visible={isOpenViewer}
-            images={tableData[currentTraining] ? getImages(tableData[currentTraining].examples) : []}
+            images={tableData[currentTraining]
+              && tableData[currentTraining].examples
+              ? getImages(tableData[currentTraining].examples)
+              : []}
             activeIndex={currentImage}
             drag
             zIndex={1000}
