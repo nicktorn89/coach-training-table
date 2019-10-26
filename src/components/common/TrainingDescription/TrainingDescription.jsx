@@ -1,5 +1,3 @@
-import { useState } from 'preact/hooks';
-import { Fragment } from 'preact';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -13,11 +11,11 @@ import GridListTile from '@material-ui/core/GridListTile';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 
-const TrainingDescription = ({ 
-  isOpen = false, onClose, trainingName = '', trainingDescription = '', images = [], onClickImage,
+const TrainingDescription = ({
+  isOpen = false, onClose, trainingName = '', trainingDescription = '', images = [], onImageClick,
 }) => {
   const handleClickOnImage = ({ target }) => {
-    onClickImage({ imageIndex: target.dataset.imageIndex, isOpen: true });
+    onImageClick(target.dataset.imageIndex);
   };
 
   const Bold = ({ children }) => <Typography component='p' variant='body1' style={{ fontWeight: 'bold' }}>{children}</Typography>;
@@ -64,7 +62,7 @@ const TrainingDescription = ({
             <GridList cols={4}>
               {images.map((image, index) => (
                 <GridListTile key={index} onClick={handleClickOnImage}>
-                  <img data-image-index={index} src={image} alt='training' />
+                  <img data-image-index={index} src={image.src} alt='training' style={{ cursor: 'pointer' }} />
                 </GridListTile>
               ))}
             </GridList>
