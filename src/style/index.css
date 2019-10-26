@@ -5,9 +5,12 @@ html, body {
 	height: 100%;
 	width: 100%;
 	padding: 0;
-  margin: 0;
+  margin: 0; 
   background: linear-gradient(to right top, #7f7f7f, #707070, #626062, #545153, #474344, #3f3a3b, #363232, #2e2a2a, #282525, #221f21, #1c1a1c, #161517);
-  background-image: url('../assets/background.jpg');
+  background: url('../assets/background.webp') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
   font-family: 'Helvetica Neue', arial, sans-serif;
   box-sizing: border-box;
@@ -88,6 +91,10 @@ a.training-link {
   cursor: pointer;
 }
 
+div.cards-block {
+  display: none;
+}
+
 @media screen and (max-width: 1279px) {
   h2.heading {
     text-align: center;
@@ -98,8 +105,23 @@ a.training-link {
   }
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 1000px) {
+  div.cards-block {
+    display: flex;
+  }
+
   div.table-block {
     display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  div.cards-block {
+    display: flex;
+    justify-content: center;
+  }
+
+  [role='dialog'].MuiDialog-paper {
+    margin: 8px;
   }
 }

@@ -15,7 +15,7 @@ const TrainingDescription = ({
   isOpen = false, onClose, trainingName = '', trainingDescription = '', images = [], onImageClick,
 }) => {
   const handleClickOnImage = ({ target }) => {
-    onImageClick(target.dataset.imageIndex);
+    onImageClick && onImageClick(target.dataset.imageIndex);
   };
 
   const Bold = ({ children }) => <Typography component='p' variant='body1' style={{ fontWeight: 'bold' }}>{children}</Typography>;
@@ -52,17 +52,17 @@ const TrainingDescription = ({
 
       <DialogContent dividers>
         <Grid container>
-          <Grid item xs={12} className='text-content'>
+          <Grid item xs={12} className='text-content' style={{ display: 'flex', flexDirection: 'column' }}>
             {typeof trainingDescription === 'string'
               ? trainingDescription
               : documentToReactComponents(trainingDescription, options)}
           </Grid>
 
           <Grid item xs={12} className='gallery'>
-            <GridList cols={4}>
+            <GridList cols={2}>
               {images.map((image, index) => (
                 <GridListTile key={index} onClick={handleClickOnImage}>
-                  <img data-image-index={index} src={image.src} alt='training' style={{ cursor: 'pointer' }} />
+                  <img data-image-index={index} src={image.src} alt='training' style={{ cursor: 'pointer' }} loading='lazy' />
                 </GridListTile>
               ))}
             </GridList>
