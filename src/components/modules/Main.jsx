@@ -73,7 +73,9 @@ const Main = () => {
       .then(({ fields }) => {
         setDescriptionData(fields);
 
-        window.document.title = fields.title;
+        if (typeof window !== 'undefined') {
+          window.document.title = fields.title;
+        }
       })
       .catch((err) => {
         console.error(err);
