@@ -1,3 +1,5 @@
+import { memo } from 'preact/compat';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -6,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 
-const TableComponent = ({ data, onOpenTraining }) => (
+const TableComponent = ({ data = [], onOpenTraining }) => (
   <Paper>
     <Table aria-label='simple table'>
       <TableHead>
@@ -17,8 +19,9 @@ const TableComponent = ({ data, onOpenTraining }) => (
           <TableCell align='center'>Место проведения</TableCell>
         </TableRow>
       </TableHead>
+
       <TableBody>
-        {data.map && data.map((row) => (
+        {data.map((row) => (
           <TableRow key={row.id}>
             <TableCell align='center'>
               {row.dayOfWeek}
@@ -35,4 +38,4 @@ const TableComponent = ({ data, onOpenTraining }) => (
   </Paper>
 );
 
-export default TableComponent;
+export default memo(TableComponent);

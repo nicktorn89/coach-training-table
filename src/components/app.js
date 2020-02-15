@@ -1,5 +1,5 @@
 import Main from './modules/Main';
 
-export default function App() {
-  return <Main />;
-}
+const App = () => <Main />;
+
+export default App;
