@@ -1,7 +1,7 @@
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
-import { useState, useEffect } from 'preact/hooks';
+import { useState, useEffect, useMemo } from 'preact/hooks';
 import { Fragment } from 'preact';
 import Viewer from 'react-viewer';
 import keys from './keys.json';
@@ -25,19 +25,34 @@ const Main = () => {
       },
     },
   });
-  const [isOpenModal, setIsModalOpen] = useState(false);
-  const [currentTraining, setCurrentTraining] = useState(0);
+  const [currentTraining, setCurrentTraining] = useState(null);
+
+  const [imagesArray, setImagesArray] = useState([]);
   const [currentImage, setImage] = useState(0);
+
+  const [isOpenModal, setIsModalOpen] = useState(false);
   const [isOpenViewer, setIsViewerOpen] = useState(false);
 
   const handleClickOnImage = (imageIndex) => {
-    setImage(imageIndex);
+    setImage(Number(imageIndex));
+
     setIsModalOpen(false);
+
     setIsViewerOpen(true);
+  };
+
+  const handleCloseViewer = () => {
+    setIsViewerOpen(false);
+
+    setIsModalOpen(true);
+
+    setImage(0);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+
+    setCurrentTraining(null);
   };
 
   const handleOpenModal = ({ target }) => {
@@ -47,40 +62,47 @@ const Main = () => {
       .map((row) => row.id)
       .indexOf(Number(trainingId));
 
-    setIsModalOpen(true);
-    setCurrentTraining(indexOfTraining ? indexOfTraining : 0);
+    if (!isNaN(Number(indexOfTraining)) && indexOfTraining !== null) {
+      setIsModalOpen(true);
+      setCurrentTraining(indexOfTraining);
+    }
   };
 
-  const handleCloseViewer = () => {
-    setIsViewerOpen(false);
+  const trainingName = useMemo(() => tableData[currentTraining]
+    ? tableData[currentTraining].typeOfTraining
+    : '', [currentTraining]);
 
-    setIsModalOpen(true);
-  };
+  const trainingDescription = useMemo(() => tableData[currentTraining]
+    ? tableData[currentTraining].trainingDescription
+    : '', [currentTraining]);
 
   useEffect(() => {
-    client
-      .getEntries({ content_type: 'training' })
-      .then((entry) => {
-        console.log(entry.items.map(({ fields }) => fields));
-        setTableData(entry.items.map(({ fields }) => fields));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    (async () => {
+      try {
+        const entry = await client.getEntries({ content_type: 'training' });
 
-    client
-      .getEntry('15efANJioHRlZjQUZEK5vJ')
-      .then(({ fields }) => {
+        setTableData(entry.items.map(({ fields }) => fields));
+
+        const { fields } = await client.getEntry('15efANJioHRlZjQUZEK5vJ');
+
         setDescriptionData(fields);
 
         if (typeof window !== 'undefined') {
           window.document.title = fields.title;
         }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      } catch (error) {
+        console.error(error);
+      }
+    })();
   }, []);
+
+  useEffect(() => {
+    if (currentTraining !== null && tableData[currentTraining]) {
+      setImagesArray(getImages(tableData[currentTraining].examples));
+    } else {
+      setImagesArray([]);
+    }
+  }, [currentTraining]);
 
   return (
     <Container maxWidth='lg' className='main-container'>
@@ -113,26 +135,16 @@ const Main = () => {
         isOpen={isOpenModal}
         onClose={handleCloseModal}
         onImageClick={handleClickOnImage}
-        trainingName={tableData[currentTraining]
-          ? tableData[currentTraining].typeOfTraining
-          : ''}
-        trainingDescription={tableData[currentTraining]
-          ? tableData[currentTraining].trainingDescription
-          : ''}
-        images={tableData[currentTraining]
-          && tableData[currentTraining].examples
-          ? getImages(tableData[currentTraining].examples)
-          : []}
+        trainingName={trainingName}
+        trainingDescription={trainingDescription}
+        images={imagesArray}
       />
 
       {typeof document !== 'undefined'
         ? (
           <Viewer
             visible={isOpenViewer}
-            images={tableData[currentTraining]
-              && tableData[currentTraining].examples
-              ? getImages(tableData[currentTraining].examples)
-              : []}
+            images={imagesArray}
             activeIndex={currentImage}
             drag
             zIndex={1000}

@@ -1,3 +1,4 @@
+import { memo } from 'preact/compat';
 import Typography from '@material-ui/core/Typography';
 
 const Description = ({ text }) => (
@@ -6,4 +7,4 @@ const Description = ({ text }) => (
   </Typography>
 );
 
-export default Description;
+export default memo(Description);
