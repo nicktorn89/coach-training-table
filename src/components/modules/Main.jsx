@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import { useState, useEffect, useMemo } from 'preact/hooks';
 import { Fragment } from 'preact';
-import Viewer from 'react-viewer';
 import keys from './keys.json';
 import { Table, Heading, Description, TrainingDescription, TrainingCard } from '../common';
 import { getImages } from './utils';
@@ -76,6 +75,28 @@ const Main = () => {
     ? tableData[currentTraining].trainingDescription
     : '', [currentTraining]);
 
+  const renderViewer = () => {
+    if (typeof window === 'undefined') return <Fragment />;
+
+    // eslint-disable-next-line
+    const Viewer = (require('react-viewer')).default;
+
+    return typeof document !== 'undefined' && (
+      <Viewer
+        visible={isOpenViewer}
+        images={imagesArray}
+        activeIndex={currentImage}
+        drag
+        zIndex={1000}
+        rotatable={false}
+        attribute={false}
+        scalable={false}
+        noNavbar
+        onClose={handleCloseViewer}
+      />
+    );
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -121,13 +142,15 @@ const Main = () => {
         </Grid>
 
         <Grid item xs={12} lg={12} className='cards-block'>
-          {
-            tableData.map((row) => (
-              <Grid item xs={9} sm={6} md={4} lg={2} key={row.id}>
-                <TrainingCard data={row} onOpenTraining={handleOpenModal} />
-              </Grid>
-            ))
-          }
+          <Grid container spacing={2} justify='center'>
+            {
+              tableData.map((row) => (
+                <Grid item xs={9} sm={6} md={4} lg={2} key={row.id}>
+                  <TrainingCard data={row} onOpenTraining={handleOpenModal} />
+                </Grid>
+              ))
+            }
+          </Grid>
         </Grid>
       </Grid>
 
@@ -140,22 +163,7 @@ const Main = () => {
         images={imagesArray}
       />
 
-      {typeof document !== 'undefined'
-        ? (
-          <Viewer
-            visible={isOpenViewer}
-            images={imagesArray}
-            activeIndex={currentImage}
-            drag
-            zIndex={1000}
-            rotatable={false}
-            attribute={false}
-            scalable={false}
-            noNavbar
-            onClose={handleCloseViewer}
-          />
-        )
-        : <Fragment />}
+      {renderViewer()}
     </Container>
   );
 };
