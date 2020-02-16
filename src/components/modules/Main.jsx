@@ -54,9 +54,7 @@ const Main = () => {
     setCurrentTraining(null);
   };
 
-  const handleOpenModal = ({ target }) => {
-    const { trainingId } = target.dataset;
-
+  const handleOpenModal = (trainingId) => () => {
     const indexOfTraining = tableData && tableData
       .map((row) => row.id)
       .indexOf(Number(trainingId));
