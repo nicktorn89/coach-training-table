@@ -28,7 +28,7 @@ const TableComponent = ({ data = [], onOpenTraining }) => (
             </TableCell>
             <TableCell align='center'>{row.time}</TableCell>
             <TableCell align='center'>
-              <Link onClick={onOpenTraining} data-training-id={row.id} className='training-link'>{row.typeOfTraining}</Link>
+              <Link onClick={onOpenTraining(row.id)} className='training-link'>{row.typeOfTraining}</Link>
             </TableCell>
             <TableCell align='center'>{row.placeForTraining}</TableCell>
           </TableRow>

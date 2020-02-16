@@ -22,7 +22,7 @@ const TrainingCard = ({ data, onOpenTraining }) => (
     </CardContent>
 
     <CardActions style={{ display: 'flex', justifyContent: 'flex-end' }}>
-      <Button size='small' onClick={onOpenTraining}><span data-training-id={data.id}>Узнать больше</span></Button>
+      <Button size='small' onClick={onOpenTraining(data.id)}><span>Узнать больше</span></Button>
     </CardActions>
   </Card>
 );
