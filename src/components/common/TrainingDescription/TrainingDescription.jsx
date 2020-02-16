@@ -1,4 +1,4 @@
-import { memo } from 'preact/compat';
+import { memo, useEffect, useState } from 'preact/compat';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,12 +10,19 @@ import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
+import Slide from '@material-ui/core/Slide';
+
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
+import { useResize } from '../../hooks';
 
 const TrainingDescription = ({
   isOpen = false, onClose, trainingName = '', trainingDescription = '', images = [], onImageClick,
 }) => {
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const { screenWidth } = useResize();
+
   const handleClickOnImage = ({ target }) => {
     onImageClick && onImageClick(target.dataset.imageIndex);
   };
@@ -46,8 +53,27 @@ const TrainingDescription = ({
     renderText: (text) => text.replace('!', '?'),
   };
 
+  useEffect(() => {
+    if (screenWidth <= 750) {
+      setIsFullScreen(true);
+    } else {
+      setIsFullScreen(false);
+    }
+  }, [screenWidth]);
+
   return (
-    <Dialog onClose={onClose} aria-labelledby='customized-dialog-title' id='dialog' open={isOpen}>
+    <Dialog
+      aria-labelledby='customized-dialog-title'
+      id='dialog'
+      open={isOpen}
+      fullScreen={isFullScreen}
+      onClose={onClose}
+      TransitionComponent={Slide}
+      transitionDuration={{
+        enter: 500,
+        exit: 250,
+      }}
+    >
       <DialogTitle id='customized-dialog-title' onClose={onClose}>
         Описание тренировки {trainingName}
       </DialogTitle>
