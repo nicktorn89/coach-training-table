@@ -90,7 +90,13 @@ const TrainingDescription = ({
             <GridList cols={2}>
               {images.map((image, index) => (
                 <GridListTile key={index} onClick={handleClickOnImage}>
-                  <img data-image-index={index} src={image.src} alt='training' style={{ cursor: 'pointer' }} loading='lazy' />
+                  <img
+                    data-image-index={index}
+                    className='gallery__image-preview'
+                    src={image.src}
+                    alt='training'
+                    loading='lazy'
+                  />
                 </GridListTile>
               ))}
             </GridList>

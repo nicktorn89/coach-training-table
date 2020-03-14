@@ -104,6 +104,11 @@ const Main = () => {
 
         const { fields } = await client.getEntry('15efANJioHRlZjQUZEK5vJ');
 
+        if (fields.background && fields.background.fields) {
+          document.body.style.background = `url("${fields.background.fields.file.url}") no-repeat center center fixed`;
+          document.body.style.backgroundSize = 'cover';
+        }
+
         setDescriptionData(fields);
 
         if (typeof window !== 'undefined') {

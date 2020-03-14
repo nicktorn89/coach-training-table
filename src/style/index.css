@@ -6,8 +6,9 @@ html, body {
 	width: 100%;
 	padding: 0;
   margin: 0; 
-  background: linear-gradient(to right top, #7f7f7f, #707070, #626062, #545153, #474344, #3f3a3b, #363232, #2e2a2a, #282525, #221f21, #1c1a1c, #161517);
-  background: url('../assets/background.webp') no-repeat center center fixed; 
+  background: #f857a6;
+  background: -webkit-linear-gradient(to right, #ff5858, #f857a6);
+  background: linear-gradient(to right, #ff5858, #f857a6);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -51,6 +52,11 @@ html, body {
 #app {
 	height: 100%;
   box-sizing: border-box;
+}
+
+.gallery__image-preview {
+  cursor: pointer;
+  max-width: 450px;
 }
 
 .mdc-theme--dark {
