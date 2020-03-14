@@ -1,10 +1,20 @@
+@import 'reset.css';
+@import 'text.css';
+
 html, body {
 	height: 100%;
 	width: 100%;
 	padding: 0;
-	margin: 0;
-	background: #FAFAFA;
-	font-family: 'Helvetica Neue', arial, sans-serif;
+  margin: 0; 
+  background: #f857a6;
+  background: -webkit-linear-gradient(to right, #ff5858, #f857a6);
+  background: linear-gradient(to right, #ff5858, #f857a6);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Helvetica Neue', arial, sans-serif;
+  box-sizing: border-box;
 	font-weight: 400;
 	color: #444;
 	-webkit-font-smoothing: antialiased;
@@ -35,12 +45,18 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
-* {
-	box-sizing: border-box;
+*, *:before, *:after {
+  box-sizing: border-box;
 }
 
 #app {
 	height: 100%;
+  box-sizing: border-box;
+}
+
+.gallery__image-preview {
+  cursor: pointer;
+  max-width: 450px;
 }
 
 .mdc-theme--dark {
@@ -54,4 +70,64 @@ html, body {
 
 #app .page {
   padding-top: 56px;
+}
+
+div.photo-block {
+  display: flex; 
+  justify-content: center;
+}
+
+div.main-container {
+  padding-top: 2rem;
+}
+
+[role='dialog'] {
+  min-width: 50%;
+}
+
+div.gallery {
+  margin-top: 2rem;
+}
+
+div.text-content * {
+  margin-bottom: 8px;
+}
+
+a.training-link {
+  cursor: pointer;
+}
+
+div.cards-block {
+  display: none;
+}
+
+@media screen and (max-width: 1279px) {
+  h2.heading {
+    text-align: center;
+  }
+  
+  h5.description {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  div.cards-block {
+    display: flex;
+  }
+
+  div.table-block {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  div.cards-block {
+    display: flex;
+    justify-content: center;
+  }
+
+  [role='dialog'].MuiDialog-paper {
+    margin: 8px;
+  }
 }

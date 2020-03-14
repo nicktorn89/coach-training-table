@@ -1,35 +1,37 @@
-import { h, Component } from 'preact';
-import { Router } from 'preact-router';
+import Helmet from 'preact-helmet';
+import { Fragment } from 'preact';
 
-import Header from './header';
-import Home from '../routes/home';
-import Profile from '../routes/profile';
-import NotFound from '../routes/404';
-// import Home from 'async!../routes/home';
-// import Profile from 'async!../routes/profile';
+import Main from './modules/Main';
 
-export default class App extends Component {
-	/** Gets fired when the route changes.
-	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
-	 *	@param {string} event.url	The newly routed URL
-	 */
-	handleRoute = e => {
-		this.setState({
-			currentUrl: e.url
-		});
-	};
-
-	render() {
-		return (
-			<div id="app">
-				<Header selectedRoute={this.state.currentUrl} />
-				<Router onChange={this.handleRoute}>
-					<Home path="/" />
-					<Profile path="/profile/" user="me" />
-					<Profile path="/profile/:user" />
-					<NotFound default />
-				</Router>
-			</div>
-		);
-	}
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line
+  require('preact/debug');
 }
+
+const App = () => (
+  <Fragment>
+    <Helmet
+      htmlAttributes={{ lang: 'ru', amp: undefined }}
+      titleAttributes={{ lang: 'ru' }}
+      script={[
+        { async: true, src: 'https://www.googletagmanager.com/gtag/js?id=UA-158653337-1' },
+        {
+          type: 'text/javascript',
+          innerHTML: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-158653337-1');
+          `,
+        },
+      ]}
+      noscript={[
+        { innerHTML: '<span>Пожалуйста включите JavaScript для работы с сайтом</span>' },
+      ]}
+    />
+    <Main />
+  </Fragment>
+);
+
+export default App;
